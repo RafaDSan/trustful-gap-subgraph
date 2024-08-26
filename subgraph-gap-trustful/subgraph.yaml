@@ -1,0 +1,35 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: GrantRegistry
+    network: arbitrum-one
+    source:
+      address: "0x274d52D3531Be597d438c69CF3f0116704f752A1"
+      abi: GrantRegistry
+      startBlock: 245902564
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - GrantDeleted
+        - GrantManagerChanged
+        - GrantRegistered
+        - GrantUpdated
+      abis:
+        - name: GrantRegistry
+          file: ./abis/GrantRegistry.json
+      eventHandlers:
+        - event: GrantDeleted(indexed bytes32)
+          handler: handleGrantDeleted
+        - event: GrantManagerChanged(indexed bytes32,indexed address,indexed address)
+          handler: handleGrantManagerChanged
+        - event: GrantRegistered(indexed bytes32,indexed bytes32,indexed address,string,address)
+          handler: handleGrantRegistered
+        - event: GrantUpdated(indexed bytes32,indexed bytes32,string,uint8)
+          handler: handleGrantUpdated
+      file: ./src/grant-registry.ts

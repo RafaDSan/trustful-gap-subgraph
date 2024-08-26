@@ -1,0 +1,376 @@
+[
+  { "inputs": [], "name": "GrantAlreadyExists", "type": "error" },
+  { "inputs": [], "name": "GrantNonExistent", "type": "error" },
+  { "inputs": [], "name": "InvalidChain", "type": "error" },
+  { "inputs": [], "name": "InvalidGrantManager", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "grantId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "GrantDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "grantId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "oldManager",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newManager",
+        "type": "address"
+      }
+    ],
+    "name": "GrantManagerChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "grantId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "grantee",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "grantProgramLabel",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "manager",
+        "type": "address"
+      }
+    ],
+    "name": "GrantRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "grantId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "grantProgramLabel",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum IGrantRegistry.Status",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "name": "GrantUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "bytes32", "name": "id", "type": "bytes32" },
+          { "internalType": "uint256", "name": "chain", "type": "uint256" },
+          { "internalType": "address", "name": "grantee", "type": "address" },
+          {
+            "internalType": "string",
+            "name": "grantProgramLabel",
+            "type": "string"
+          },
+          { "internalType": "string", "name": "project", "type": "string" },
+          {
+            "internalType": "string[]",
+            "name": "externalLinks",
+            "type": "string[]"
+          },
+          { "internalType": "uint256", "name": "startDate", "type": "uint256" },
+          { "internalType": "uint256", "name": "endDate", "type": "uint256" },
+          {
+            "internalType": "enum IGrantRegistry.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address[]",
+                "name": "fundingTokens",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "fundingAmounts",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "bool[]",
+                "name": "disbursed",
+                "type": "bool[]"
+              }
+            ],
+            "internalType": "struct IGrantRegistry.Disbursement",
+            "name": "disbursements",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct IGrantRegistry.Grant",
+        "name": "grant",
+        "type": "tuple"
+      }
+    ],
+    "name": "generateId",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "grantUID", "type": "bytes32" }
+    ],
+    "name": "getGrant",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "bytes32", "name": "id", "type": "bytes32" },
+          { "internalType": "uint256", "name": "chain", "type": "uint256" },
+          { "internalType": "address", "name": "grantee", "type": "address" },
+          {
+            "internalType": "string",
+            "name": "grantProgramLabel",
+            "type": "string"
+          },
+          { "internalType": "string", "name": "project", "type": "string" },
+          {
+            "internalType": "string[]",
+            "name": "externalLinks",
+            "type": "string[]"
+          },
+          { "internalType": "uint256", "name": "startDate", "type": "uint256" },
+          { "internalType": "uint256", "name": "endDate", "type": "uint256" },
+          {
+            "internalType": "enum IGrantRegistry.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address[]",
+                "name": "fundingTokens",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "fundingAmounts",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "bool[]",
+                "name": "disbursed",
+                "type": "bool[]"
+              }
+            ],
+            "internalType": "struct IGrantRegistry.Disbursement",
+            "name": "disbursements",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct IGrantRegistry.Grant",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "grantUID", "type": "bytes32" }
+    ],
+    "name": "getManager",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "bytes32", "name": "id", "type": "bytes32" },
+          { "internalType": "uint256", "name": "chain", "type": "uint256" },
+          { "internalType": "address", "name": "grantee", "type": "address" },
+          {
+            "internalType": "string",
+            "name": "grantProgramLabel",
+            "type": "string"
+          },
+          { "internalType": "string", "name": "project", "type": "string" },
+          {
+            "internalType": "string[]",
+            "name": "externalLinks",
+            "type": "string[]"
+          },
+          { "internalType": "uint256", "name": "startDate", "type": "uint256" },
+          { "internalType": "uint256", "name": "endDate", "type": "uint256" },
+          {
+            "internalType": "enum IGrantRegistry.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address[]",
+                "name": "fundingTokens",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "fundingAmounts",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "bool[]",
+                "name": "disbursed",
+                "type": "bool[]"
+              }
+            ],
+            "internalType": "struct IGrantRegistry.Disbursement",
+            "name": "disbursements",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct IGrantRegistry.Grant",
+        "name": "grant",
+        "type": "tuple"
+      },
+      { "internalType": "address", "name": "manager", "type": "address" }
+    ],
+    "name": "register",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "grantUID", "type": "bytes32" }
+    ],
+    "name": "remove",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "grantUID", "type": "bytes32" },
+      { "internalType": "address", "name": "newManager", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "grantUID", "type": "bytes32" },
+      {
+        "components": [
+          { "internalType": "bytes32", "name": "id", "type": "bytes32" },
+          { "internalType": "uint256", "name": "chain", "type": "uint256" },
+          { "internalType": "address", "name": "grantee", "type": "address" },
+          {
+            "internalType": "string",
+            "name": "grantProgramLabel",
+            "type": "string"
+          },
+          { "internalType": "string", "name": "project", "type": "string" },
+          {
+            "internalType": "string[]",
+            "name": "externalLinks",
+            "type": "string[]"
+          },
+          { "internalType": "uint256", "name": "startDate", "type": "uint256" },
+          { "internalType": "uint256", "name": "endDate", "type": "uint256" },
+          {
+            "internalType": "enum IGrantRegistry.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address[]",
+                "name": "fundingTokens",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "fundingAmounts",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "bool[]",
+                "name": "disbursed",
+                "type": "bool[]"
+              }
+            ],
+            "internalType": "struct IGrantRegistry.Disbursement",
+            "name": "disbursements",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct IGrantRegistry.Grant",
+        "name": "grant",
+        "type": "tuple"
+      }
+    ],
+    "name": "update",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

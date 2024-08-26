@@ -1,0 +1,40 @@
+type GrantDeleted @entity(immutable: true) {
+  id: Bytes!
+  grantId: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GrantManagerChanged @entity(immutable: true) {
+  id: Bytes!
+  grantId: Bytes! # bytes32
+  oldManager: Bytes! # address
+  newManager: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GrantRegistered @entity(immutable: true) {
+  id: Bytes!
+  grantId: Bytes! # bytes32
+  GrantRegistry_id: Bytes! # bytes32
+  grantee: Bytes! # address
+  grantProgramLabel: String! # string
+  manager: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GrantUpdated @entity(immutable: true) {
+  id: Bytes!
+  grantId: Bytes! # bytes32
+  GrantRegistry_id: Bytes! # bytes32
+  grantProgramLabel: String! # string
+  status: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
